@@ -77,12 +77,27 @@ PLATFORM_SECURITY_PATCH := 2099-12-31
 VENDOR_SECURITY_PATCH := 2099-12-31
 PLATFORM_VERSION := 16.1.0
 
-# TWRP Configuration
+# TWRP Configuration - General
 TW_THEME := portrait_hdpi
 TW_EXTRA_LANGUAGES := true
 TW_SCREEN_BLANK_ON_BOOT := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_USE_TOOLBOX := true
+TW_HAS_DOWNLOAD_MODE := true
 
-# bye bye mtp
-TW_EXCLUDE_MTP := true
+# TWRP Configuration - MTP & Storage Fixes
+# 1. 啟用 MTP
+TW_EXCLUDE_MTP := false
+TW_INCLUDE_MTP := true
+TW_MTP_DEVICE := /dev/mtp_usb
+
+# 2. 啟用 USB OTG 支援
+TW_NO_USB_STORAGE := false
+
+# 3. 指定外部儲存路徑 (必須對應 recovery.fstab)
+TW_EXTERNAL_STORAGE_PATH := /external_sd
+TW_USB_STORAGE_PATH := /usb_otg
+
+# 4. 額外檔案系統支援 (讓 OTG 能讀 NTFS/exFAT)
+TW_INCLUDE_NTFS_3G := true
+TW_INCLUDE_FUSE_EXFAT := true
