@@ -36,7 +36,7 @@ TARGET_SCREEN_DENSITY := 480
 
 # Kernel
 BOARD_KERNEL_BASE := 0x40078000
-BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 buildvariant=user
+BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 buildvariant=user androidboot.usbconfig=mtp,adb
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_RAMDISK_OFFSET := 0x14f88000
 BOARD_KERNEL_TAGS_OFFSET := 0x13f88000
@@ -71,11 +71,8 @@ TARGET_USERIMAGES_USE_F2FS := true
 
 # Security patch level
 VENDOR_SECURITY_PATCH := 2021-08-01
-
-# Hack: prevent anti rollback
 PLATFORM_SECURITY_PATCH := 2099-12-31
-VENDOR_SECURITY_PATCH := 2099-12-31
-PLATFORM_VERSION := 16.1.0
+PLATFORM_VERSION := 8.1.0
 
 # TWRP Configuration - General
 TW_THEME := portrait_hdpi
@@ -85,19 +82,19 @@ TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_USE_TOOLBOX := true
 TW_HAS_DOWNLOAD_MODE := true
 
-# TWRP Configuration - MTP & Storage Fixes
-# 1. 啟用 MTP
-TW_EXCLUDE_MTP := false
+# --- USB & MTP Fixes ---
 TW_INCLUDE_MTP := true
+TW_EXCLUDE_MTP := false
+# 指向核心自動生成的 MTP 裝置節點
 TW_MTP_DEVICE := /dev/mtp_usb
+TW_EXCLUDE_DEFAULT_USB_INIT := true
 
-# 2. 啟用 USB OTG 支援
+# --- Storage Fixes ---
+# 確保 OTG 沒被停用
 TW_NO_USB_STORAGE := false
-
-# 3. 指定外部儲存路徑 (必須對應 recovery.fstab)
+# 對應 fstab 的掛載點
 TW_EXTERNAL_STORAGE_PATH := /external_sd
 TW_USB_STORAGE_PATH := /usb_otg
-
-# 4. 額外檔案系統支援 (讓 OTG 能讀 NTFS/exFAT)
+# 加入檔案系統支援
 TW_INCLUDE_NTFS_3G := true
 TW_INCLUDE_FUSE_EXFAT := true

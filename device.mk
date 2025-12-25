@@ -6,3 +6,8 @@
 #
 
 LOCAL_PATH := device/oppo/CPH1909
+# Force add MTP packages
+# 強制加入 MTP 服務與依賴
+PRODUCT_PACKAGES += \
+    libmtp \
+    mtp_server
